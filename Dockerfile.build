@@ -1,0 +1,25 @@
+# Pull the Node image from Docker Hub
+FROM node:16
+
+# Setting Working Directory
+WORKDIR /app
+
+# Setting frontend Working Directory
+COPY ./ui/build/ ./ui/build/
+
+# Copying only package.json
+COPY package*.json ./
+
+# Install Dependencies
+RUN npm install
+
+# Copy rest of the code to container
+COPY . .
+
+EXPOSE 3080 27017
+
+# Run the API on Nodemon
+CMD ["node", "server.js"]
+
+
+# docker build . -f Dockerfile.node  -t si3mshady/slackclone-be:1
